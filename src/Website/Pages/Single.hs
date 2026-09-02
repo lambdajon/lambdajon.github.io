@@ -34,7 +34,7 @@ gruvboxStyle = paletteStyle gruvboxDark
 writerOpts :: Bool -> Maybe (Template Text) -> WriterOptions
 writerOpts toc tmpl =
   def
-    { writerHighlightMethod = Skylighting gruvboxStyle
+    { writerHighlightStyle = Just gruvboxStyle
     , writerHtmlQTags = True
     , writerSectionDivs = True
     , writerTableOfContents = toc
