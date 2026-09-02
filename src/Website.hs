@@ -9,6 +9,8 @@ import Data.Map.Strict qualified as Map
 import Options.Applicative
 import System.Exit (exitFailure)
 import System.Process (callProcess)
+import Data.Text (Text)
+import Data.Yaml qualified as Y
 import Website.Assets (copyAssets)
 import Website.Config (SiteConfig (..), loadConfig)
 import Website.Context (mkCtx)
@@ -127,7 +129,8 @@ runBuild = do
           [ (p.postSlug, Map.singleton p.postFrontmatter.fmLang (postUrl p))
           | p <- allContent
           ]
-  let ?ctx = mkCtx cfg translationMap
+  i18nDict <- Y.decodeFileThrow "i18n.yaml" :: IO (Map.Map Text (Map.Map Text Text))
+  let ?ctx = mkCtx cfg translationMap i18nDict
 
   _ <- mapConcurrently (buildSingle (cfgOutputDir cfg)) allContent
 

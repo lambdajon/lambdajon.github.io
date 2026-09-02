@@ -18,8 +18,6 @@ import Website.Components.Footer (Footer (..))
 import Website.Components.Nav (Nav (..))
 import Website.Context (Ctx, SiteCtx (..))
 
--- Page record ─────────────────────
-
 data Page = Page
   { pageTitle :: !Text
   , pageLang :: !Text
@@ -56,7 +54,7 @@ fullPage pg = do
       headContent pg.pageTitle
       pg.pageHead
     body_ $ do
-      render Nav
+      render (Nav pg.pageLang)
       pg.pageBody
       render (Footer pg.pageBack)
       siteScripts

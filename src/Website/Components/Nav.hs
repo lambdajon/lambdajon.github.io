@@ -1,6 +1,8 @@
 module Website.Components.Nav (Nav (..)) where
 
 import Clay hiding (filter, href, label, span_, (?))
+import Data.Map.Strict qualified as Map
+import Data.Text (Text)
 import Data.Text qualified as T
 import Lucid
 import Lucid.Base (makeAttribute)
@@ -26,10 +28,10 @@ import Website.Theme
   )
 import Prelude hiding (rem)
 
-data Nav = Nav
+data Nav = Nav Text
 
 instance Render Nav where
-  render Nav =
+  render (Nav navLang) =
     nav_ [class_ "nav"] $ do
       a_ [href_ "/", class_ "nav__brand"] $ do
         span_ [class_ "nav__brand-accent"] "\x03bb"
@@ -62,8 +64,10 @@ instance Render Nav where
         button_ [class_ "lang-btn", makeAttribute "data-lang-btn" "en"] "EN"
         button_ [class_ "lang-btn", makeAttribute "data-lang-btn" "uz"] "UZ"
    where
-    navLink href i18n label =
-      li_ $ a_ [href_ href, class_ "nav__link", makeAttribute "data-i18n" i18n] label
+    dict = Map.findWithDefault Map.empty navLang ?ctx.ctxI18n
+    t key fallback = Map.findWithDefault fallback key dict
+    navLink href i18nKey fallback =
+      li_ $ a_ [href_ href, class_ "nav__link", makeAttribute "data-i18n" i18nKey] (toHtml $ t i18nKey fallback)
 
 instance Styled Nav where
   style_ = do
