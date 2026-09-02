@@ -2664,6 +2664,18 @@
           "url": "http://hackage.haskell.org/package/zip-archive/zip-archive-0.4.3.2.tar.gz",
           "hash": "sha256-rZwT99GVRCxasjXU63USt+QS0s8hzj2zjjOWhBYejkI="
         }
+      },
+      "hinotify-0.4.2-00000000": {
+        "name": "hinotify",
+        "version": "0.4.2",
+        "cabal": {
+          "url": "https://hackage.haskell.org/package/hinotify-0.4.2/revision/0.cabal",
+          "hash": "sha256-3ExFVE4ZIIZIgu4bMy14lgzbn3twaYP26rPJ2r2k+p4="
+        },
+        "src": {
+          "url": "http://hackage.haskell.org/package/hinotify/hinotify-0.4.2.tar.gz",
+          "hash": "sha256-K0ABeQBxnzoNw336eZzUQz0UgKm9rwJ6UZl3OFNDURw="
+        }
       }
     },
     "git": {}
