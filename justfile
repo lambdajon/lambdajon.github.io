@@ -19,6 +19,10 @@ note title lang="en":
 project title lang="en":
     cabal run website -- new --kind project --title {{quote(title)}} --lang {{lang}}
 
+# Push the full Nix closure to Cachix so CI can download instead of rebuild
+cache:
+    nix build .# --print-out-paths --no-link | xargs nix path-info -r | cachix push lambdajon
+
 deploy: build
     #!/usr/bin/env bash
     set -euo pipefail

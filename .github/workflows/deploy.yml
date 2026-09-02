@@ -21,29 +21,22 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup GHC and cabal
-        uses: haskell-actions/setup@v2
+      - name: Install Nix
+        uses: cachix/install-nix-action@v27
         with:
-          ghc-version: "9.12.2"
-          cabal-version: "latest"
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            extra-substituters = https://cache.iog.io https://lambdajon.cachix.org
+            extra-trusted-public-keys = hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= "lambdajon.cachix.org-1:6+t9OJus42lomgVGzhZdGQH9JL14HWUDXxop2usvric="
 
-      - name: Setup Node (for tsc)
-        uses: actions/setup-node@v4
+      - name: Setup Cachix
+        uses: cachix/cachix-action@v15
         with:
-          node-version: "22"
-
-      - name: Install TypeScript
-        run: npm install -g typescript
-
-      - name: Cache cabal store
-        uses: actions/cache@v4
-        with:
-          path: ~/.cabal/store
-          key: cabal-${{ runner.os }}-${{ hashFiles('**/*.cabal', 'cabal.project') }}
-          restore-keys: cabal-${{ runner.os }}-
+          name: lambdajon
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
 
       - name: Build site
-        run: cabal run website -- build
+        run: nix run . -- build
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
