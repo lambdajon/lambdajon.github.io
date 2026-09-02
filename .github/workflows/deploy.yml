@@ -26,8 +26,6 @@ jobs:
         with:
           extra_nix_config: |
             experimental-features = nix-command flakes
-            extra-substituters = https://cache.iog.io https://lambdajon.cachix.org
-            extra-trusted-public-keys = hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= "lambdajon.cachix.org-1:6+t9OJus42lomgVGzhZdGQH9JL14HWUDXxop2usvric="
 
       - name: Setup Cachix
         uses: cachix/cachix-action@v15

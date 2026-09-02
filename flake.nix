@@ -2,19 +2,15 @@
   description = "Lambdajon's website";
 
   nixConfig = {
-    extra-substituters = [
-      "https://cache.iog.io"
-      "https://lambdajon.cachix.org"
-    ];
+    extra-substituters = [ "https://lambdajon.cachix.org" ];
     extra-trusted-public-keys = [
-      "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
       "lambdajon.cachix.org-1:6+t9OJus42lomgVGzhZdGQH9JL14HWUDXxop2usvric="
     ];
   };
 
   inputs = {
-    haskell-nix.url = "github:input-output-hk/haskell.nix";
-    nixpkgs.follows = "haskell-nix/nixpkgs-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
     git-hooks = {
       url = "github:cachix/git-hooks.nix";
@@ -29,31 +25,24 @@
   outputs =
     { self
     , nixpkgs
-    , haskell-nix
+    , nixpkgs-unstable
     , flake-utils
     , git-hooks
     , treefmt-nix
     }:
     flake-utils.lib.eachDefaultSystem (system:
       let
-        pkgs = import nixpkgs {
-          inherit system;
-          overlays = [ haskell-nix.overlay ];
-          inherit (haskell-nix) config;
+        pkgs = nixpkgs.legacyPackages.${system};
+        pkgsUnstable = nixpkgs-unstable.legacyPackages.${system};
+
+        hp = pkgs.haskell.packages.ghc912.override {
+          overrides = _self: super: {
+            brick = pkgs.haskell.lib.dontCheck (pkgs.haskell.lib.doJailbreak super.brick);
+          };
         };
 
-        project = pkgs.haskell-nix.cabalProject' {
-          src = ./.;
-          compiler-nix-name = "ghc9122";
-          modules = [
-            {
-              doHaddock = false;
-              doCheck = false;
-            }
-          ];
-        };
-
-        website-exe = project.hsPkgs.website.components.exes.website;
+        website = pkgs.haskell.lib.justStaticExecutables
+          (hp.callCabal2nix "website" ./. { });
 
         treefmtEval = treefmt-nix.lib.evalModule pkgs {
           projectRootFile = "flake.nix";
@@ -63,24 +52,20 @@
         };
       in
       {
-        packages.default = website-exe;
+        packages.default = website;
 
         apps.default = {
           type = "app";
           program = "${pkgs.writeShellScript "run-website" ''
             export PATH="${pkgs.typescript}/bin:$PATH"
-            exec ${website-exe}/bin/website "$@"
+            exec ${website}/bin/website "$@"
           ''}";
         };
 
-        devShells.default = project.shellFor {
-          tools = {
-            cabal = "latest";
-            haskell-language-server = "latest";
-            fourmolu = "latest";
-            hlint = "latest";
-          };
+        devShells.default = hp.shellFor {
+          packages = p: [ p.website ];
           buildInputs = with pkgs; [
+            cabal-install
             pkg-config
             zlib
             zlib.dev
@@ -89,6 +74,10 @@
             libzip
             typescript
             just
+            pkgsUnstable.haskell.packages.ghc912.fourmolu
+            hp.haskell-language-server
+            hp.hlint
+            pkgs.haskellPackages.cabal-fmt
             treefmtEval.config.build.wrapper
           ];
           shellHook = ''
