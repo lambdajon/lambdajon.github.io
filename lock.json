@@ -1,7 +1,7 @@
 {
   "haskell-cabal-lock": {
     "hackage": {
-      "Glb-0.10.2-a21b6700": {
+      "Glb-0.10.2-ba7d23b7": {
         "name": "Glob",
         "version": "0.10.2",
         "cabal": {
@@ -25,7 +25,7 @@
           "hash": "sha256-dVh7JMUSIaLIYGak6P85q7IQRP1F+HMR5vPOILmWWqE="
         }
       },
-      "JcyPxls-3.3.9-2181d617": {
+      "JcyPxls-3.3.9-fabd8980": {
         "name": "JuicyPixels",
         "version": "3.3.9",
         "cabal": {
@@ -361,7 +361,7 @@
           "hash": "sha256-Kn0amBHt3dEmr8J1b+z7I5z3OkC7+tC8he3N/kSzPHs="
         }
       },
-      "cmmnmrk-pndc-0.3-43b383a5": {
+      "cmmnmrk-pndc-0.3-36c56974": {
         "name": "commonmark-pandoc",
         "version": "0.3",
         "cabal": {
@@ -409,7 +409,7 @@
           "hash": "sha256-3VHVCwBj+MLLMnX1Mezzn0X2SVrtKjPR8m8R1fWaHRo="
         }
       },
-      "cndt-xtr-1.3.8-234b1520": {
+      "cndt-xtr-1.3.8-5a8d0841": {
         "name": "conduit-extra",
         "version": "1.3.8",
         "cabal": {
@@ -469,7 +469,7 @@
           "hash": "sha256-tJSK0HoDabSqcUGORs856Jl6aWZnrqyXPSAh66HsKMM="
         }
       },
-      "cryptn-cnnctn-0.4.6-ea0bb5a1": {
+      "cryptn-cnnctn-0.4.6-410a2316": {
         "name": "crypton-connection",
         "version": "0.4.6",
         "cabal": {
@@ -613,7 +613,7 @@
           "hash": "sha256-s6KH04IWsPv+bhkghcpszD9Ir39Sv38hYMd9/HmGflY="
         }
       },
-      "ctprc-0.13.0.1-4a6daf21": {
+      "ctprc-0.13.0.1-7f7f6154": {
         "name": "citeproc",
         "version": "0.13.0.1",
         "cabal": {
@@ -649,7 +649,7 @@
           "hash": "sha256-OlIEiG8SyGhW0NZ3EitoUit1ys25/1tibmCRTP5KNCg="
         }
       },
-      "dctmplts-0.11.0.1-191fa7e3": {
+      "dctmplts-0.11.0.1-54cb462c": {
         "name": "doctemplates",
         "version": "0.11.0.1",
         "cabal": {
@@ -661,7 +661,7 @@
           "hash": "sha256-pc96zBKtNu0ZZShtb/D7uX/37ThR9/ETWwOwST9I0Qo="
         }
       },
-      "dgst-0.0.2.1-f56e9b39": {
+      "dgst-0.0.2.1-c79599fe": {
         "name": "digest",
         "version": "0.0.2.1",
         "cabal": {
@@ -769,7 +769,7 @@
           "hash": "sha256-KHJ9gZKmykJFhKliPP3Ks1CL9ZJ+25cnAE1RCCmTYk4="
         }
       },
-      "fsntfy-0.4.4.0-7b75eb1f": {
+      "fsntfy-0.4.4.0-8b6ee5b7": {
         "name": "fsnotify",
         "version": "0.4.4.0",
         "cabal": {
@@ -781,7 +781,7 @@
           "hash": "sha256-oBY1EN5YeFvFaSdeD9vUdooW1V6h7uip24BCft6G6xQ="
         }
       },
-      "fsntfy-0.4.4.0-8a97a252": {
+      "fsntfy-0.4.4.0-9549e6b3": {
         "name": "fsnotify",
         "version": "0.4.4.0",
         "cabal": {
@@ -985,7 +985,7 @@
           "hash": "sha256-nQHqgigAyadMKuEPalJ2gnF4slZkEb9ZBtTM1cf9HBs="
         }
       },
-      "http-clnt-0.7.19-22f0dc90": {
+      "http-clnt-0.7.19-4940c095": {
         "name": "http-client",
         "version": "0.7.19",
         "cabal": {
@@ -997,7 +997,7 @@
           "hash": "sha256-KY6XuRBqlpGdsxEOs9mbIhkoOobuAEmdSSrMqBh9keE="
         }
       },
-      "http-clnt-tls-0.4.0-69312941": {
+      "http-clnt-tls-0.4.0-c27ee43c": {
         "name": "http-client-tls",
         "version": "0.4.0",
         "cabal": {
@@ -1105,7 +1105,7 @@
           "hash": "sha256-Y4qocPXbm8CK4fMFF3mWaA0x8jI7WN/dwaH0BQxwv2Y="
         }
       },
-      "lcd-2.11.20260427-faa596d7": {
+      "lcd-2.11.20260427-3d7e66a9": {
         "name": "lucid",
         "version": "2.11.20260427",
         "cabal": {
@@ -1129,7 +1129,7 @@
           "hash": "sha256-o2LqRBQK6Ub5bXjnO8nsPP2Yzr0YirJ2Pws63OoDeD4="
         }
       },
-      "lftd-bs-0.2.3.12-d19b133d": {
+      "lftd-bs-0.2.3.12-6e7c66dc": {
         "name": "lifted-base",
         "version": "0.2.3.12",
         "cabal": {
@@ -1189,7 +1189,7 @@
           "hash": "sha256-djc2iXQXvJh8xgu4wp6NpPFx69FSEUhLWDh7AgaOrlU="
         }
       },
-      "mmrph-1.2.2-e193de49": {
+      "mmrph-1.2.2-372704d2": {
         "name": "mmorph",
         "version": "1.2.2",
         "cabal": {
@@ -1213,7 +1213,7 @@
           "hash": "sha256-qI9oKwDxJCNiRw7bNfutDy0qQxf+T7v4OSyGhd4UJOo="
         }
       },
-      "mnd-cntrl-1.0.3.1-7a653ebe": {
+      "mnd-cntrl-1.0.3.1-21034792": {
         "name": "monad-control",
         "version": "1.0.3.1",
         "cabal": {
@@ -1225,7 +1225,7 @@
           "hash": "sha256-ev6O8ANtKFAAVN5s21uPyHDQNx6DQh1kAp17BMXYFJQ="
         }
       },
-      "mnd-lggr-0.3.42-315770aa": {
+      "mnd-lggr-0.3.42-48a1c8e9": {
         "name": "monad-logger",
         "version": "0.3.42",
         "cabal": {
@@ -1489,7 +1489,7 @@
           "hash": "sha256-+ZDfKLJC5Z2N5Vu1sEw3AddhSTzXQ1/7vOS4dk+eapQ="
         }
       },
-      "pndc-3.11-8133e96d": {
+      "pndc-3.11-1f992f60": {
         "name": "pandoc",
         "version": "3.11",
         "cabal": {
@@ -1501,7 +1501,7 @@
           "hash": "sha256-xpHPfw8B7optHla5wa8YRX7FuTYO0PjWpvUY2uLpHQc="
         }
       },
-      "pndc-3.11-a125bcd1": {
+      "pndc-3.11-20860ab2": {
         "name": "pandoc",
         "version": "3.11",
         "cabal": {
@@ -1513,7 +1513,7 @@
           "hash": "sha256-xpHPfw8B7optHla5wa8YRX7FuTYO0PjWpvUY2uLpHQc="
         }
       },
-      "pndc-typs-1.23.1.2-25329ba0": {
+      "pndc-typs-1.23.1.2-73a78d80": {
         "name": "pandoc-types",
         "version": "1.23.1.2",
         "cabal": {
@@ -1633,7 +1633,7 @@
           "hash": "sha256-dhqvRILfdbpYPMxC+WpAyO0KUfq2nLopGk1NdSN2SDM="
         }
       },
-      "pynb-0.2-994e9aad": {
+      "pynb-0.2-32b3f734": {
         "name": "ipynb",
         "version": "0.2",
         "cabal": {
@@ -1753,7 +1753,7 @@
           "hash": "sha256-c4/23f/vaI7hqE8hGzBOgnkU0BNvLy9a9InX7vjNf2U="
         }
       },
-      "scdc-0.1.0.5-0b4f28d4": {
+      "scdc-0.1.0.5-029a475d": {
         "name": "asciidoc",
         "version": "0.1.0.5",
         "cabal": {
@@ -1765,7 +1765,7 @@
           "hash": "sha256-mQUXoYMVNcIpeb3Ll8Hl/MCKEzP9Sxshdqx9LtzP/6U="
         }
       },
-      "scdc-0.1.0.5-1cf41702": {
+      "scdc-0.1.0.5-df16abb1": {
         "name": "asciidoc",
         "version": "0.1.0.5",
         "cabal": {
@@ -1813,7 +1813,7 @@
           "hash": "sha256-mheI4IGdapGLwZGC6FlO4C4N5V2CbL/bdzT+Nt4jDaU="
         }
       },
-      "skylghtng-0.14.7-4fb26f5b": {
+      "skylghtng-0.14.7-3905a3eb": {
         "name": "skylighting",
         "version": "0.14.7",
         "cabal": {
@@ -1825,7 +1825,7 @@
           "hash": "sha256-x5Nzdjyx6NDktt3kD6UK4JZUjV6WZm7+nR/lk6rlDLA="
         }
       },
-      "skylghtng-cr-0.14.7-940f778b": {
+      "skylghtng-cr-0.14.7-bd8023fb": {
         "name": "skylighting-core",
         "version": "0.14.7",
         "cabal": {
@@ -1837,7 +1837,7 @@
           "hash": "sha256-9Up0xiZuoBh/YvDBiP16e31u0UzyMU3TFfLXIFuliIA="
         }
       },
-      "skylghtng-frmt-blz-html-0.1.2.1-0244ccec": {
+      "skylghtng-frmt-blz-html-0.1.2.1-457edcba": {
         "name": "skylighting-format-blaze-html",
         "version": "0.1.2.1",
         "cabal": {
@@ -1849,7 +1849,7 @@
           "hash": "sha256-gE+QXrOqqZb6KV6F+7C3TzK7+PSVRmGVn6APJF0e0AA="
         }
       },
-      "skylghtng-frmt-cntxt-0.1.0.2-fb040132": {
+      "skylghtng-frmt-cntxt-0.1.0.2-98a94cdd": {
         "name": "skylighting-format-context",
         "version": "0.1.0.2",
         "cabal": {
@@ -1861,7 +1861,7 @@
           "hash": "sha256-ccyEwW5vBFq/wq1DFfujqA/FFJ9J6WiwXd8xXVyBE9o="
         }
       },
-      "skylghtng-frmt-ltx-0.1-6a8ce6f5": {
+      "skylghtng-frmt-ltx-0.1-74fed53c": {
         "name": "skylighting-format-latex",
         "version": "0.1",
         "cabal": {
@@ -1873,7 +1873,7 @@
           "hash": "sha256-jrucKTN4lXZzJo3qLr4KU52gMpiyofDn14pZEJZ4rS0="
         }
       },
-      "skylghtng-frmt-ns-0.1-a290781b": {
+      "skylghtng-frmt-ns-0.1-c5141313": {
         "name": "skylighting-format-ansi",
         "version": "0.1",
         "cabal": {
@@ -1885,7 +1885,7 @@
           "hash": "sha256-smuzqIMQ2f5KqlyyuDls3lkqxeXDlG756o0rx1BIfDM="
         }
       },
-      "skylghtng-frmt-typst-0.1-9c3fcbc2": {
+      "skylghtng-frmt-typst-0.1-3eb50bce": {
         "name": "skylighting-format-typst",
         "version": "0.1",
         "cabal": {
@@ -1897,7 +1897,7 @@
           "hash": "sha256-amrKVTUtvEdl03j8N2EOCCZbDDOw1V7jNbTeiHrZOM0="
         }
       },
-      "smgrpds-6.0.2-51ff28da": {
+      "smgrpds-6.0.2-d47b9217": {
         "name": "semigroupoids",
         "version": "6.0.2",
         "cabal": {
@@ -1909,7 +1909,7 @@
           "hash": "sha256-dJjTDs6+zzOV5VCr1z4oJylmzIJq3fEtubbbOE5hglk="
         }
       },
-      "smlgn-1.4-1f12e822": {
+      "smlgn-1.4-9cb6ae10": {
         "name": "semialign",
         "version": "1.4",
         "cabal": {
@@ -1933,7 +1933,7 @@
           "hash": "sha256-JLQtHpES3YVWliUIV6ezBp6HpThYKluMp9zOcEzPk18="
         }
       },
-      "sn-2.3.1.0-90ffcdb6": {
+      "sn-2.3.1.0-69f0b5eb": {
         "name": "aeson",
         "version": "2.3.1.0",
         "cabal": {
@@ -1945,7 +1945,7 @@
           "hash": "sha256-vWVNPb/kzXR92XmS8/TwfXWfhhhASjx6nRhcWj1aMmg="
         }
       },
-      "sn-prtty-0.8.11-865e0938": {
+      "sn-prtty-0.8.11-6be7ecc3": {
         "name": "aeson-pretty",
         "version": "0.8.11",
         "cabal": {
@@ -1957,7 +1957,7 @@
           "hash": "sha256-SmMKRymEU239HsYJL5oVh5eJpFqHoQdKTcw/jyWLeAU="
         }
       },
-      "sn-prtty-0.8.11-9c537574": {
+      "sn-prtty-0.8.11-7d231ba6": {
         "name": "aeson-pretty",
         "version": "0.8.11",
         "cabal": {
@@ -2041,7 +2041,7 @@
           "hash": "sha256-PpWyibmTlrh30EsUix/j4tDOmfEPHvZ7nnk1bcFSwxs="
         }
       },
-      "strmng-cmmns-0.2.3.1-b0b585d0": {
+      "strmng-cmmns-0.2.3.1-89b09b3f": {
         "name": "streaming-commons",
         "version": "0.2.3.1",
         "cabal": {
@@ -2209,7 +2209,7 @@
           "hash": "sha256-84h3fyot14FILSQhfArP32qruJ4QakScm5s55iuFDEs="
         }
       },
-      "tls-2.4.3-a793eb4d": {
+      "tls-2.4.3-3f126ddf": {
         "name": "tls",
         "version": "2.4.3",
         "cabal": {
@@ -2281,7 +2281,7 @@
           "hash": "sha256-ac7zsIYqC8GCnU3mjLSk+fiGArBhYwRG8Ac8B39Ny54="
         }
       },
-      "trnsfrmrs-bs-0.4.6.1-998d7677": {
+      "trnsfrmrs-bs-0.4.6.1-f9b29856": {
         "name": "transformers-base",
         "version": "0.4.6.1",
         "cabal": {
@@ -2293,16 +2293,16 @@
           "hash": "sha256-xfhqXF0O15K2Am/1NyVAByEp2MZQ0ZVLDCxn1BFtmp0="
         }
       },
-      "trnsfrmrs-cmpt-0.8-2c53cca4": {
+      "trnsfrmrs-cmpt-0.7.2-c28654e2": {
         "name": "transformers-compat",
-        "version": "0.8",
+        "version": "0.7.2",
         "cabal": {
-          "url": "https://hackage.haskell.org/package/transformers-compat-0.8/revision/0.cabal",
-          "hash": "sha256-JG0tVcSXBZL7aNnZKC0a9xlymvGog8HFt0/dSdUIZtw="
+          "url": "https://hackage.haskell.org/package/transformers-compat-0.7.2/revision/0.cabal",
+          "hash": "sha256-BE+5lV9j7hOPzr7f3L5Ur+dB8tWJKi0L3zqAUr00JkM="
         },
         "src": {
-          "url": "http://hackage.haskell.org/package/transformers-compat/transformers-compat-0.8.tar.gz",
-          "hash": "sha256-F4DGXKN+KOckgBwindnFziZCkX5eMTA7BiO72h0rCF8="
+          "url": "http://hackage.haskell.org/package/transformers-compat/transformers-compat-0.7.2.tar.gz",
+          "hash": "sha256-Y18vN1o5Q3/XnWbVa3XxYOpqeHOTXfa3u7Gsx+vesYc="
         }
       },
       "tsty-1.5.4-a52186b5": {
@@ -2341,7 +2341,7 @@
           "hash": "sha256-iA1FzjPMKmASCSpLKiool8kFCsTm183cCnn7rgq8LXk="
         }
       },
-      "ttprsc-sn-2.2.2.0-16a986c7": {
+      "ttprsc-sn-2.2.2.0-51cb7356": {
         "name": "attoparsec-aeson",
         "version": "2.2.2.0",
         "cabal": {
@@ -2353,7 +2353,7 @@
           "hash": "sha256-B8STXlw/3bkY2eVG1npkzRfRqgUMECG4vRC2GtjsKjA="
         }
       },
-      "txmth-0.13.2.2-92ca3d17": {
+      "txmth-0.13.2.2-98adf247": {
         "name": "texmath",
         "version": "0.13.2.2",
         "cabal": {
@@ -2413,7 +2413,7 @@
           "hash": "sha256-QzuL1epLvjF62isUdiRueSfPWsJgdgsadMFOuvv32hs="
         }
       },
-      "typst-0.11.0.1-b3da32e5": {
+      "typst-0.11.0.1-8aeeb43e": {
         "name": "typst",
         "version": "0.11.0.1",
         "cabal": {
@@ -2521,7 +2521,7 @@
           "hash": "sha256-d7iq3rxKSLECOdTvQcNQibwXPi87C69wCzpPvv7VD9A="
         }
       },
-      "w-pp-sttc-3.2.1-7d60f768": {
+      "w-pp-sttc-3.2.1-95bc9324": {
         "name": "wai-app-static",
         "version": "3.2.1",
         "cabal": {
@@ -2533,7 +2533,7 @@
           "hash": "sha256-HQP76brA2MwBVipRs2ZstY59nUMhzfJkw90Kaep2o9I="
         }
       },
-      "w-pp-sttc-3.2.1-bfa5a2b3": {
+      "w-pp-sttc-3.2.1-98d60b45": {
         "name": "wai-app-static",
         "version": "3.2.1",
         "cabal": {
@@ -2545,7 +2545,7 @@
           "hash": "sha256-HQP76brA2MwBVipRs2ZstY59nUMhzfJkw90Kaep2o9I="
         }
       },
-      "w-xtr-3.1.18-eba3b501": {
+      "w-xtr-3.1.18-e3447c44": {
         "name": "wai-extra",
         "version": "3.1.18",
         "cabal": {
@@ -2569,7 +2569,7 @@
           "hash": "sha256-3yoQ2wftLc8q2guJK9U+zl2SQJm7ugm+hNe+Lh2EcYw="
         }
       },
-      "wrp-3.4.15-3479f20d": {
+      "wrp-3.4.15-bc136bd3": {
         "name": "warp",
         "version": "3.4.15",
         "cabal": {
@@ -2605,7 +2605,7 @@
           "hash": "sha256-HLM155PamShYco4Xbgg1mmWUh9B3V6GVlXYE0ZbpLsE="
         }
       },
-      "xml-cndt-1.10.1.0-8ceceb89": {
+      "xml-cndt-1.10.1.0-203e0312": {
         "name": "xml-conduit",
         "version": "1.10.1.0",
         "cabal": {
@@ -2629,7 +2629,7 @@
           "hash": "sha256-wQu5S38cN8JT3DoUFf6K0E0ByWHgwBUovrGT5MpK9Es="
         }
       },
-      "yml-0.11.11.2-3932ed17": {
+      "yml-0.11.11.2-efe4bd15": {
         "name": "yaml",
         "version": "0.11.11.2",
         "cabal": {
@@ -2641,7 +2641,7 @@
           "hash": "sha256-g54qLQ8dLUM/nbbIT9wyVjXrlJWhZAJxlfwBh5emPTU="
         }
       },
-      "zlb-0.7.1.1-8e585965": {
+      "zlb-0.7.1.1-153a769f": {
         "name": "zlib",
         "version": "0.7.1.1",
         "cabal": {
@@ -2653,7 +2653,7 @@
           "hash": "sha256-QFUSwj8m65RRWIgsisfreV5Q3mRkQnHSCbbVI3Opn3o="
         }
       },
-      "zp-rchv-0.4.3.2-58e7ebba": {
+      "zp-rchv-0.4.3.2-a9baf474": {
         "name": "zip-archive",
         "version": "0.4.3.2",
         "cabal": {

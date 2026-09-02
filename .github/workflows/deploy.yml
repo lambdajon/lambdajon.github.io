@@ -31,7 +31,7 @@ jobs:
         uses: DeterminateSystems/magic-nix-cache-action@v7
 
       - name: Generate site
-        run: nix run . -- build
+        run: nix run . -- build  
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
