@@ -10,12 +10,16 @@ import System.FilePath (takeExtension, takeFileName, (</>))
 
 collectPosts :: FilePath -> IO [FilePath]
 collectPosts dir = do
-  entries <- listDirectory dir
-  let paths = map (dir </>) entries
-  files <- filterM doesFileExist paths
-  subdirs <- filterM doesDirectoryExist paths
-  let mdFiles = filter isMdFile files
-  nested <- mapM collectPosts subdirs
-  pure (mdFiles <> concat nested)
+  exists <- doesDirectoryExist dir
+  if not exists
+    then pure []
+    else do
+      entries <- listDirectory dir
+      let paths = map (dir </>) entries
+      files <- filterM doesFileExist paths
+      subdirs <- filterM doesDirectoryExist paths
+      let mdFiles = filter isMdFile files
+      nested <- mapM collectPosts subdirs
+      pure (mdFiles <> concat nested)
  where
   isMdFile p = takeExtension p == ".md" && not ("_" `isPrefixOf` takeFileName p)
