@@ -21,6 +21,12 @@
 
   mkDerivation.nativeBuildInputs = [ config.deps.pkg-config pkgs.makeWrapper ];
 
+  # Ensure allow-newer is applied after dream2nix rewrites cabal.project
+  mkDerivation.preBuild = ''
+    echo "allow-newer: all" >> cabal.project
+    echo "constraints: transformers-compat == 0.7.2" >> cabal.project
+  '';
+
   mkDerivation.postInstall = ''
     wrapProgram $out/bin/website \
       --prefix PATH : ${config.deps.typescript}/bin
