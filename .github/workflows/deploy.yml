@@ -27,11 +27,14 @@ jobs:
           extra_nix_config: |
             experimental-features = nix-command flakes
 
-      - name: Cache Nix store
-        uses: DeterminateSystems/magic-nix-cache-action@v7
+      - name: Setup Cachix
+        uses: cachix/cachix-action@v15
+        with:
+          name: lambdajon
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
 
       - name: Generate site
-        run: nix run . -- build  
+        run: nix run . -- build
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
