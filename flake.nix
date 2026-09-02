@@ -35,14 +35,24 @@
         pkgs = nixpkgs.legacyPackages.${system};
         pkgsUnstable = nixpkgs-unstable.legacyPackages.${system};
 
+        hl = pkgs.haskell.lib;
+
         hp = pkgs.haskell.packages.ghc912.override {
-          overrides = _self: super: {
-            brick = pkgs.haskell.lib.dontCheck (pkgs.haskell.lib.doJailbreak super.brick);
+          overrides = self: super: {
+            brick = hl.dontCheck (hl.doJailbreak super.brick);
+            xml-conduit = hl.dontCheck (hl.doJailbreak super.xml-conduit);
+            unicode-data = hl.dontCheck super.unicode-data;
+            unicode-transforms = hl.dontCheck super.unicode-transforms;
+            unicode-collation = hl.dontCheck super.unicode-collation;
+            pandoc = hl.dontCheck super.pandoc;
+            commonmark = hl.dontCheck super.commonmark;
+            commonmark-extensions = hl.dontCheck super.commonmark-extensions;
+            commonmark-pandoc = hl.dontCheck super.commonmark-pandoc;
+            website = self.callCabal2nix "website" ./. { };
           };
         };
 
-        website = pkgs.haskell.lib.justStaticExecutables
-          (hp.callCabal2nix "website" ./. { });
+        website = hp.website;
 
         treefmtEval = treefmt-nix.lib.evalModule pkgs {
           projectRootFile = "flake.nix";
@@ -62,9 +72,9 @@
           ''}";
         };
 
-        devShells.default = hp.shellFor {
-          packages = p: [ p.website ];
+        devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
+            hp.ghc
             cabal-install
             pkg-config
             zlib
@@ -77,7 +87,7 @@
             pkgsUnstable.haskell.packages.ghc912.fourmolu
             hp.haskell-language-server
             hp.hlint
-            pkgs.haskellPackages.cabal-fmt
+            haskellPackages.cabal-fmt
             treefmtEval.config.build.wrapper
           ];
           shellHook = ''
