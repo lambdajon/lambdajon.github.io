@@ -18,6 +18,7 @@ import Website.Discover (collectPosts)
 import Website.I18n (buildI18nJs)
 import Website.New (NewOpts (..), runNew)
 import Website.Pages.About (buildAboutPages)
+import Website.Pages.Feed (buildFeed)
 import Website.Pages.Index (buildIndexHtml)
 import Website.Pages.Listing (buildListingPages)
 import Website.Pages.NotFound (build404)
@@ -134,6 +135,7 @@ runBuild = do
 
   _ <- mapConcurrently (buildSingle (cfgOutputDir cfg)) allContent
 
+  buildFeed (cfgOutputDir cfg) allContent
   buildIndex (cfgOutputDir cfg) allContent
   buildIndexHtml (cfgOutputDir cfg) allContent
   buildTagPages (cfgOutputDir cfg) allContent

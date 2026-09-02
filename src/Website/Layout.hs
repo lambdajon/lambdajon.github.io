@@ -51,12 +51,12 @@ fullPage pg = do
   doctype_
   html_ [lang_ pg.pageLang] $ do
     head_ $ do
-      headContent pg.pageTitle
+      headContent pg.pageTitle pg.pageLang
       pg.pageHead
     body_ $ do
       render (Nav pg.pageLang)
       pg.pageBody
-      render (Footer pg.pageBack)
+      render (Footer pg.pageLang pg.pageBack)
       siteScripts
       pg.pageScripts
 
@@ -66,15 +66,21 @@ page title lang body =
 
 -- Head 
 
-headContent :: (Ctx) => Text -> Html ()
-headContent pageTitle = do
+headContent :: (Ctx) => Text -> Text -> Html ()
+headContent pageTitle pageLang = do
   meta_ [charset_ "UTF-8"]
   meta_ [name_ "viewport", content_ "width=device-width, initial-scale=1.0"]
   title_ $ toHtml (pageTitle <> " \x2014 " <> ?ctx.ctxSiteTitle)
   link_ [rel_ "stylesheet", href_ "/theme.css"]
   link_ [rel_ "stylesheet", href_ "/fonts.css"]
   link_ [rel_ "stylesheet", href_ "/style.css"]
+  link_ [rel_ "alternate", type_ "application/rss+xml", title_ ?ctx.ctxSiteTitle, href_ feedHref]
   script_ themeInitScript
+ where
+  feedHref =
+    if pageLang == ?ctx.ctxDefaultLang
+      then "/feed.xml"
+      else "/" <> pageLang <> "/feed.xml"
 
 themeInitScript :: Text
 themeInitScript =

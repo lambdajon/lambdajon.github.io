@@ -36,6 +36,7 @@ library
     Website.Layout
     Website.New
     Website.Pages.About
+    Website.Pages.Feed
     Website.Pages.Index
     Website.Pages.Listing
     Website.Pages.NotFound
