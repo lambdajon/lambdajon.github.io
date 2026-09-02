@@ -21,20 +21,29 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install Nix
-        uses: cachix/install-nix-action@v27
+      - name: Setup GHC and cabal
+        uses: haskell-actions/setup@v2
         with:
-          extra_nix_config: |
-            experimental-features = nix-command flakes
+          ghc-version: "9.12.2"
+          cabal-version: "latest"
 
-      - name: Setup Cachix
-        uses: cachix/cachix-action@v15
+      - name: Setup Node (for tsc)
+        uses: actions/setup-node@v4
         with:
-          name: lambdajon
-          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          node-version: "22"
 
-      - name: Generate site
-        run: nix run . -- build
+      - name: Install TypeScript
+        run: npm install -g typescript
+
+      - name: Cache cabal store
+        uses: actions/cache@v4
+        with:
+          path: ~/.cabal/store
+          key: cabal-${{ runner.os }}-${{ hashFiles('**/*.cabal', 'cabal.project') }}
+          restore-keys: cabal-${{ runner.os }}-
+
+      - name: Build site
+        run: cabal run website -- build
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
