@@ -1,0 +1,129 @@
+<!DOCTYPE HTML><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Crash Detection and Structured Reporting in NixOS Environments — Lambdajon</title><link rel="stylesheet" href="/theme.css"><link rel="stylesheet" href="/fonts.css"><link rel="stylesheet" href="/style.css"><script>(function(){var s=localStorage.getItem('theme');if(!s)s=matchMedia('(prefers-color-scheme:light)').matches?'light':'dark';document.documentElement.setAttribute('data-theme',s);})()</script><meta name="description" content="Crash Detection and Structured Reporting in NixOS Environments"><link rel="alternate" hreflang="en" href="/en/posts/paper2/"><style>html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    background-color: #1d2021;
+    color: #928374;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #928374;  padding-left: 4px; }
+div.sourceCode
+  { color: #ebdbb2; background-color: #282828; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span { color: #ebdbb2; } /* Normal */
+code span.bn { color: #d3869b; } /* BaseN */
+code span.cf { color: #fb4934; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #b8bb26; } /* Char */
+code span.co { color: #928374; font-style: italic; } /* Comment */
+code span.dt { color: #fabd2f; } /* DataType */
+code span.dv { color: #d3869b; } /* DecVal */
+code span.er { color: #fb4934; text-decoration: underline; } /* Error */
+code span.fl { color: #d3869b; } /* Float */
+code span.fu { color: #fabd2f; } /* Function */
+code span.im { color: #83a598; } /* Import */
+code span.kw { color: #fb4934; font-weight: bold; } /* Keyword */
+code span.op { color: #8ec07c; } /* Operator */
+code span.ot { color: #8ec07c; } /* Other */
+code span.sc { color: #fe8019; } /* SpecialChar */
+code span.ss { color: #b8bb26; } /* SpecialString */
+code span.st { color: #b8bb26; } /* String */
+code span.va { color: #ebdbb2; } /* Variable */
+</style></head><body><nav class="nav"><a href="/" class="nav__brand"><span class="nav__brand-accent">λ</span> lambdajon</a><ul class="nav__links"><li><a href="/articles/" class="nav__link" data-i18n="nav.posts">articles</a></li><li><a href="/projects/" class="nav__link" data-i18n="nav.projects">projects</a></li><li><a href="/notes/" class="nav__link" data-i18n="nav.notes">notes</a></li><li><a href="/about/" class="nav__link" data-i18n="nav.about">about</a></li></ul><button class="theme-btn" data-theme-toggle aria-label="Toggle theme"><svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='4'/><line x1='12' y1='2' x2='12' y2='6'/><line x1='12' y1='18' x2='12' y2='22'/><line x1='4.93' y1='4.93' x2='7.76' y2='7.76'/><line x1='16.24' y1='16.24' x2='19.07' y2='19.07'/><line x1='2' y1='12' x2='6' y2='12'/><line x1='18' y1='12' x2='22' y2='12'/><line x1='4.93' y1='19.07' x2='7.76' y2='16.24'/><line x1='16.24' y1='7.76' x2='19.07' y2='4.93'/></svg></button><div class="lang-switcher"><button class="lang-btn" data-lang-btn="en">EN</button><button class="lang-btn" data-lang-btn="uz">UZ</button></div></nav><header class="page-header"><h1 class="page-header__title">Crash Detection and Structured Reporting in NixOS Environments</h1><div class="page-header__subtitle"><div class="card__tags"><a href="/tags/research/" class="tag">research</a><a href="/tags/rust/" class="tag">rust</a><a href="/tags/nixos/" class="tag">nixos</a><a href="/tags/systems/" class="tag">systems</a><a href="/tags/linux/" class="tag">linux</a></div></div></header><article class="content"><nav role="doc-toc"><ul>
+<li><a href="#overview" id="toc-overview">Overview</a></li>
+<li><a href="#architecture" id="toc-architecture">Architecture</a></li>
+<li><a href="#derive-macro" id="toc-derive-macro">Derive Macro</a></li>
+<li><a href="#nixos-integration" id="toc-nixos-integration">NixOS
+Integration</a></li>
+</ul></nav>
+<section id="overview" class="level2">
+<h2>Overview</h2>
+<p>Relago is the crash-detection and structured reporting system
+developed for the <strong>Xinux</strong> distribution. It is inspired by
+Fedora’s ABRT but redesigned around Rust’s ownership model and NixOS’s
+declarative configuration principles.</p>
+</section>
+<section id="architecture" class="level2">
+<h2>Architecture</h2>
+<pre><code>┌─────────────┐       signal       ┌─────────────────┐
+│  Monitored  │ ─────────────────► │  Relago Daemon  │
+│  Process    │                    │  (systemd unit) │
+└─────────────┘                    └────────┬────────┘
+                                            │ plugin dispatch
+                             ┌──────────────┴──────────────┐
+                             ▼                             ▼
+                     ┌──────────────┐             ┌──────────────┐
+                     │ Core Report  │             │ Custom Plugin│
+                     │ (derive)     │             │ (trait impl) │
+                     └──────────────┘             └──────────────┘</code></pre>
+</section>
+<section id="derive-macro" class="level2">
+<h2>Derive Macro</h2>
+<p>The <code>#[derive(CrashReport)]</code> macro auto-generates
+serialisation, a human-readable summary, and a structured JSON
+schema:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode rust"><code class="sourceCode rust"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> <span class="pp">relago::</span>CrashReport<span class="op">;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="at">#[</span>derive<span class="at">(</span>CrashReport<span class="at">)]</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> SegfaultReport <span class="op">{</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    pid<span class="op">:</span>       <span class="dt">u32</span><span class="op">,</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    timestamp<span class="op">:</span> <span class="dt">u64</span><span class="op">,</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    backtrace<span class="op">:</span> <span class="dt">Vec</span><span class="op">&lt;</span>Frame<span class="op">&gt;,</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    exe_path<span class="op">:</span>  <span class="dt">PathBuf</span><span class="op">,</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Expands to (simplified):</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode rust"><code class="sourceCode rust"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">impl</span> CrashReport <span class="cf">for</span> SegfaultReport <span class="op">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> report_name() <span class="op">-&gt;</span> <span class="op">&amp;</span><span class="ot">&#39;static</span> <span class="dt">str</span> <span class="op">{</span> <span class="st">&quot;SegfaultReport&quot;</span> <span class="op">}</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> to_json(<span class="op">&amp;</span><span class="kw">self</span>) <span class="op">-&gt;</span> <span class="pp">serde_json::</span>Value <span class="op">{</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="pp">serde_json::json!</span>(<span class="op">{</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;pid&quot;</span><span class="op">:</span>       <span class="kw">self</span><span class="op">.</span>pid<span class="op">,</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;timestamp&quot;</span><span class="op">:</span> <span class="kw">self</span><span class="op">.</span>timestamp<span class="op">,</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;backtrace&quot;</span><span class="op">:</span> <span class="kw">self</span><span class="op">.</span>backtrace<span class="op">,</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;exe_path&quot;</span><span class="op">:</span>  <span class="kw">self</span><span class="op">.</span>exe_path<span class="op">,</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> summary(<span class="op">&amp;</span><span class="kw">self</span>) <span class="op">-&gt;</span> <span class="dt">String</span> <span class="op">{</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>        <span class="pp">format!</span>(<span class="st">&quot;Segfault in PID {} at t={}&quot;</span><span class="op">,</span> <span class="kw">self</span><span class="op">.</span>pid<span class="op">,</span> <span class="kw">self</span><span class="op">.</span>timestamp)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</section>
+<section id="nixos-integration" class="level2">
+<h2>NixOS Integration</h2>
+<p>The Relago daemon ships as a NixOS module:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode nix"><code class="sourceCode nix"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="op">{</span> <span class="va">config</span><span class="op">,</span> <span class="va">pkgs</span><span class="op">,</span> <span class="op">...</span> <span class="op">}</span>:</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="va">services</span>.<span class="va">relago</span> <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">enable</span>   <span class="op">=</span> <span class="cn">true</span><span class="op">;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="va">plugins</span>  <span class="op">=</span> <span class="op">[</span> pkgs<span class="op">.</span>relago-plugins<span class="op">.</span>coredump <span class="op">];</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="va">reportTo</span> <span class="op">=</span> <span class="st">&quot;https://crashes.example.com/ingest&quot;</span><span class="op">;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="op">};</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</section></article><footer class="footer"><span data-i18n="footer.copyright">© 2025 Lambdajon</span><a href="/">← home</a></footer><script src="/js/i18n.js"></script><script src="/js/main.js"></script><script id="lang-urls" type="application/json">{"en":"/en/posts/paper2/"}</script></body></html>

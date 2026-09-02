@@ -1,0 +1,146 @@
+<!DOCTYPE HTML><html lang="nb"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Dependent Types and Formal Verification in Systems Software — Lambdajon</title><link rel="stylesheet" href="/theme.css"><link rel="stylesheet" href="/fonts.css"><link rel="stylesheet" href="/style.css"><script>(function(){var s=localStorage.getItem('theme');if(!s)s=matchMedia('(prefers-color-scheme:light)').matches?'light':'dark';document.documentElement.setAttribute('data-theme',s);})()</script><meta name="description" content="Dependent Types and Formal Verification in Systems Software"><link rel="alternate" hreflang="en" href="/en/posts/paper1/"><link rel="alternate" hreflang="nb" href="/nb/posts/paper1/"><style>html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    background-color: #1d2021;
+    color: #928374;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #928374;  padding-left: 4px; }
+div.sourceCode
+  { color: #ebdbb2; background-color: #282828; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span { color: #ebdbb2; } /* Normal */
+code span.bn { color: #d3869b; } /* BaseN */
+code span.cf { color: #fb4934; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #b8bb26; } /* Char */
+code span.co { color: #928374; font-style: italic; } /* Comment */
+code span.dt { color: #fabd2f; } /* DataType */
+code span.dv { color: #d3869b; } /* DecVal */
+code span.er { color: #fb4934; text-decoration: underline; } /* Error */
+code span.fl { color: #d3869b; } /* Float */
+code span.fu { color: #fabd2f; } /* Function */
+code span.im { color: #83a598; } /* Import */
+code span.kw { color: #fb4934; font-weight: bold; } /* Keyword */
+code span.op { color: #8ec07c; } /* Operator */
+code span.ot { color: #8ec07c; } /* Other */
+code span.sc { color: #fe8019; } /* SpecialChar */
+code span.ss { color: #b8bb26; } /* SpecialString */
+code span.st { color: #b8bb26; } /* String */
+code span.va { color: #ebdbb2; } /* Variable */
+</style></head><body><nav class="nav"><a href="/" class="nav__brand"><span class="nav__brand-accent">λ</span> lambdajon</a><ul class="nav__links"><li><a href="/articles/" class="nav__link" data-i18n="nav.posts">articles</a></li><li><a href="/projects/" class="nav__link" data-i18n="nav.projects">projects</a></li><li><a href="/notes/" class="nav__link" data-i18n="nav.notes">notes</a></li><li><a href="/about/" class="nav__link" data-i18n="nav.about">about</a></li></ul><button class="theme-btn" data-theme-toggle aria-label="Toggle theme"><svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='4'/><line x1='12' y1='2' x2='12' y2='6'/><line x1='12' y1='18' x2='12' y2='22'/><line x1='4.93' y1='4.93' x2='7.76' y2='7.76'/><line x1='16.24' y1='16.24' x2='19.07' y2='19.07'/><line x1='2' y1='12' x2='6' y2='12'/><line x1='18' y1='12' x2='22' y2='12'/><line x1='4.93' y1='19.07' x2='7.76' y2='16.24'/><line x1='16.24' y1='7.76' x2='19.07' y2='4.93'/></svg></button><div class="lang-switcher"><button class="lang-btn" data-lang-btn="en">EN</button><button class="lang-btn" data-lang-btn="uz">UZ</button></div></nav><header class="page-header"><h1 class="page-header__title">Dependent Types and Formal Verification in Systems Software</h1><div class="page-header__subtitle"><div class="card__tags"><a href="/tags/research/" class="tag">research</a><a href="/tags/type-theory/" class="tag">type theory</a><a href="/tags/dependent-types/" class="tag">dependent types</a><a href="/tags/verification/" class="tag">verification</a><a href="/tags/systems/" class="tag">systems</a></div></div></header><article class="content"><section id="abstract" class="level2">
+<h2>Abstract</h2>
+<p>We explore the application of dependent type systems to the formal
+verification of low-level systems code, with a focus on memory safety
+properties that cannot be captured by simpler type disciplines.</p>
+</section>
+<section id="introduction" class="level2">
+<h2>1. Introduction</h2>
+<p>Systems software operates at the boundary between hardware and the
+rest of the software stack. Properties such as memory safety, absence of
+data races, and correct handling of resource lifetimes are critical yet
+hard to guarantee with conventional testing.</p>
+</section>
+<section id="background" class="level2">
+<h2>2. Background</h2>
+<section id="dependent-types" class="level3">
+<h3>2.1 Dependent Types</h3>
+<p>A dependent type is a type whose definition depends on a
+<strong>value</strong>. The classic example is the type of vectors of
+fixed length <code>n</code>:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Vec</span> (n <span class="op">:</span> <span class="dt">Nat</span>) (a <span class="op">:</span> <span class="dt">Type</span>) <span class="kw">where</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Nil</span>  <span class="op">:</span> <span class="dt">Vec</span> <span class="dv">0</span> a</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Cons</span> <span class="op">:</span> a <span class="ot">-&gt;</span> <span class="dt">Vec</span> n a <span class="ot">-&gt;</span> <span class="dt">Vec</span> (n <span class="op">+</span> <span class="dv">1</span>) a</span></code></pre></div>
+<p>Safe vector indexing then has the type:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">index</span> <span class="op">:</span> <span class="dt">Fin</span> n <span class="ot">-&gt;</span> <span class="dt">Vec</span> n a <span class="ot">-&gt;</span> a</span></code></pre></div>
+<p>The type <code>Fin n</code> represents natural numbers strictly less
+than <code>n</code>, making out-of-bounds access a <em>type error</em>
+rather than a runtime fault.</p>
+</section>
+<section id="related-work" class="level3">
+<h3>2.2 Related Work</h3>
+<table>
+<thead>
+<tr>
+<th>System</th>
+<th>Language</th>
+<th>Verification target</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>F*</td>
+<td>F*</td>
+<td>Crypto, OS kernels</td>
+</tr>
+<tr>
+<td>Cogent</td>
+<td>Cogent</td>
+<td>File system drivers</td>
+</tr>
+<tr>
+<td>RustBelt</td>
+<td>Coq/Iris</td>
+<td>Rust type system soundness</td>
+</tr>
+<tr>
+<td>Verus</td>
+<td>Rust</td>
+<td>Systems code with SMT</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="approach" class="level2">
+<h2>3. Approach</h2>
+<p>We instrument a subset of a Rust-like IR with a dependent type layer
+and prove safety properties via refinement types:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode rust"><code class="sourceCode rust"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Precondition: buf.len() &gt;= offset + len</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> read_slice(buf<span class="op">:</span> <span class="op">&amp;</span>[<span class="dt">u8</span>]<span class="op">,</span> offset<span class="op">:</span> <span class="dt">usize</span><span class="op">,</span> len<span class="op">:</span> <span class="dt">usize</span>) <span class="op">-&gt;</span> <span class="op">&amp;</span>[<span class="dt">u8</span>]</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">where</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    Proof<span class="op">:</span> offset <span class="op">+</span> len <span class="op">&lt;=</span> buf<span class="op">.</span>len()<span class="op">,</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">&amp;</span>buf[offset<span class="op">..</span>offset <span class="op">+</span> len]</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>The proof obligation is discharged either by the caller supplying an
+explicit witness or by an SMT solver invoked at compile time.</p>
+</section>
+<section id="references" class="level2">
+<h2>References</h2>
+<ol type="1">
+<li>Harper, R. <em>Practical Foundations of Mathematics and
+Programming</em>. 2016.</li>
+<li>Swamy et al. <em>Dependent Types and Multi-Monadic Effects in
+F*</em>.</li>
+<li>Matsakis &amp; Klock. <em>The Rust Language</em>. ACM HILT
+2014.</li>
+</ol>
+</section></article><footer class="footer"><span data-i18n="footer.copyright">© 2025 Lambdajon</span><a href="/">← home</a></footer><script src="/js/i18n.js"></script><script src="/js/main.js"></script><script id="lang-urls" type="application/json">{"en":"/en/posts/paper1/","nb":"/nb/posts/paper1/"}</script></body></html>

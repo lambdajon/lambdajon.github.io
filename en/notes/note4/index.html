@@ -1,0 +1,140 @@
+<!DOCTYPE HTML><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>GADTs in Haskell — Lambdajon</title><link rel="stylesheet" href="/theme.css"><link rel="stylesheet" href="/fonts.css"><link rel="stylesheet" href="/style.css"><script>(function(){var s=localStorage.getItem('theme');if(!s)s=matchMedia('(prefers-color-scheme:light)').matches?'light':'dark';document.documentElement.setAttribute('data-theme',s);})()</script><meta name="description" content="GADTs in Haskell"><meta name="date" content="2011-09-11"><link rel="alternate" hreflang="en" href="/en/notes/note4/"><style>html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    background-color: #1d2021;
+    color: #928374;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #928374;  padding-left: 4px; }
+div.sourceCode
+  { color: #ebdbb2; background-color: #282828; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span { color: #ebdbb2; } /* Normal */
+code span.bn { color: #d3869b; } /* BaseN */
+code span.cf { color: #fb4934; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #b8bb26; } /* Char */
+code span.co { color: #928374; font-style: italic; } /* Comment */
+code span.dt { color: #fabd2f; } /* DataType */
+code span.dv { color: #d3869b; } /* DecVal */
+code span.er { color: #fb4934; text-decoration: underline; } /* Error */
+code span.fl { color: #d3869b; } /* Float */
+code span.fu { color: #fabd2f; } /* Function */
+code span.im { color: #83a598; } /* Import */
+code span.kw { color: #fb4934; font-weight: bold; } /* Keyword */
+code span.op { color: #8ec07c; } /* Operator */
+code span.ot { color: #8ec07c; } /* Other */
+code span.sc { color: #fe8019; } /* SpecialChar */
+code span.ss { color: #b8bb26; } /* SpecialString */
+code span.st { color: #b8bb26; } /* String */
+code span.va { color: #ebdbb2; } /* Variable */
+</style></head><body><nav class="nav"><a href="/" class="nav__brand"><span class="nav__brand-accent">λ</span> lambdajon</a><ul class="nav__links"><li><a href="/articles/" class="nav__link" data-i18n="nav.posts">articles</a></li><li><a href="/projects/" class="nav__link" data-i18n="nav.projects">projects</a></li><li><a href="/notes/" class="nav__link" data-i18n="nav.notes">notes</a></li><li><a href="/about/" class="nav__link" data-i18n="nav.about">about</a></li></ul><button class="theme-btn" data-theme-toggle aria-label="Toggle theme"><svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='4'/><line x1='12' y1='2' x2='12' y2='6'/><line x1='12' y1='18' x2='12' y2='22'/><line x1='4.93' y1='4.93' x2='7.76' y2='7.76'/><line x1='16.24' y1='16.24' x2='19.07' y2='19.07'/><line x1='2' y1='12' x2='6' y2='12'/><line x1='18' y1='12' x2='22' y2='12'/><line x1='4.93' y1='19.07' x2='7.76' y2='16.24'/><line x1='16.24' y1='7.76' x2='19.07' y2='4.93'/></svg></button><div class="lang-switcher"><button class="lang-btn" data-lang-btn="en">EN</button><button class="lang-btn" data-lang-btn="uz">UZ</button></div></nav><header class="page-header"><h1 class="page-header__title">GADTs in Haskell</h1><div class="page-header__subtitle"><span>2011-09-11</span><div class="card__tags"><a href="/tags/haskell/" class="tag">haskell</a><a href="/tags/gadts/" class="tag">GADTs</a></div></div></header><article class="content"><section id="motivation" class="level2">
+<h2>Motivation</h2>
+<p>Two of Haskell’s most powerful type-level features —
+<strong>GADTs</strong> and <strong>type families</strong> — let you push
+invariants into types that would otherwise only be checked at
+runtime.</p>
+</section>
+<section id="gadts" class="level2">
+<h2>GADTs</h2>
+<p>A GADT (Generalised Algebraic Data Type) allows each constructor to
+refine the return type:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ot">{-# LANGUAGE GADTs #-}</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Expr</span> a <span class="kw">where</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Lit</span><span class="ot">  ::</span> <span class="dt">Int</span>              <span class="ot">-&gt;</span> <span class="dt">Expr</span> <span class="dt">Int</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Bool</span><span class="ot"> ::</span> <span class="dt">Bool</span>             <span class="ot">-&gt;</span> <span class="dt">Expr</span> <span class="dt">Bool</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Add</span><span class="ot">  ::</span> <span class="dt">Expr</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Expr</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Expr</span> <span class="dt">Int</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">If</span><span class="ot">   ::</span> <span class="dt">Expr</span> <span class="dt">Bool</span> <span class="ot">-&gt;</span> <span class="dt">Expr</span> a <span class="ot">-&gt;</span> <span class="dt">Expr</span> a <span class="ot">-&gt;</span> <span class="dt">Expr</span> a</span></code></pre></div>
+<p>The typechecker now <em>knows</em> that <code>Lit</code> produces
+<code>Expr Int</code> and <code>Bool</code> produces
+<code>Expr Bool</code>, so a well-typed evaluator needs no runtime
+casts:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ot">eval ::</span> <span class="dt">Expr</span> a <span class="ot">-&gt;</span> a</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>eval (<span class="dt">Lit</span> n)      <span class="ot">=</span> n</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>eval (<span class="dt">Bool</span> b)     <span class="ot">=</span> b</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>eval (<span class="dt">Add</span> x y)    <span class="ot">=</span> eval x <span class="op">+</span> eval y</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>eval (<span class="dt">If</span> c t f)   <span class="ot">=</span> <span class="kw">if</span> eval c <span class="kw">then</span> eval t <span class="kw">else</span> eval f</span></code></pre></div>
+</section>
+<section id="type-families" class="level2">
+<h2>Type Families</h2>
+<p>Type families are <em>functions on types</em>. They come in two
+flavours.</p>
+<section id="closed-type-families" class="level3">
+<h3>Closed type families</h3>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ot">{-# LANGUAGE TypeFamilies #-}</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="kw">family</span> <span class="dt">Elem</span> (<span class="ot">c ::</span> <span class="dt">Type</span>)<span class="ot"> ::</span> <span class="dt">Type</span> <span class="kw">where</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Elem</span> [a]        <span class="ot">=</span> a</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Elem</span> (<span class="dt">Maybe</span> a)  <span class="ot">=</span> a</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Elem</span> (<span class="dt">Map</span> k v)  <span class="ot">=</span> v</span></code></pre></div>
+</section>
+<section id="associated-type-families" class="level3">
+<h3>Associated type families</h3>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> <span class="dt">Container</span> f <span class="kw">where</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">type</span> <span class="dt">Item</span><span class="ot"> f ::</span> <span class="dt">Type</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ot">  empty  ::</span> f</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="ot">  insert ::</span> <span class="dt">Item</span> f <span class="ot">-&gt;</span> f <span class="ot">-&gt;</span> f</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">Container</span> [a] <span class="kw">where</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">type</span> <span class="dt">Item</span> [a] <span class="ot">=</span> a</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  empty         <span class="ot">=</span> []</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  insert        <span class="ot">=</span> (<span class="op">:</span>)</span></code></pre></div>
+</section>
+</section>
+<section id="combining-both" class="level2">
+<h2>Combining Both</h2>
+<p>A heterogeneous list indexed by a type-level list of types:</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">HList</span> (<span class="ot">ts ::</span> [<span class="dt">Type</span>]) <span class="kw">where</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">HNil</span><span class="ot">  ::</span> <span class="dt">HList</span> &#39;[]</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">HCons</span><span class="ot"> ::</span> t <span class="ot">-&gt;</span> <span class="dt">HList</span> ts <span class="ot">-&gt;</span> <span class="dt">HList</span> (t &#39;<span class="op">:</span> ts)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="kw">family</span> <span class="dt">Head</span> (<span class="ot">ts ::</span> [<span class="dt">Type</span>])<span class="ot"> ::</span> <span class="dt">Type</span> <span class="kw">where</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Head</span> (t &#39;<span class="op">:</span> _) <span class="ot">=</span> t</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="ot">hhead ::</span> <span class="dt">HList</span> (t &#39;<span class="op">:</span> ts) <span class="ot">-&gt;</span> t</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>hhead (<span class="dt">HCons</span> x _) <span class="ot">=</span> x</span></code></pre></div>
+<p>The type <code>HList '[Int, Bool, String]</code> is statically known
+to contain exactly an <code>Int</code>, a <code>Bool</code>, and a
+<code>String</code> in that order.</p>
+</section>
+<section id="summary" class="level2">
+<h2>Summary</h2>
+<ul>
+<li>Use <strong>GADTs</strong> when constructors need to refine or
+constrain the result type.</li>
+<li>Use <strong>type families</strong> when you need type-level
+computation or associated types.</li>
+<li>Together they enable a wide range of type-safe DSLs and data
+structures with zero runtime overhead.</li>
+</ul>
+</section></article><footer class="footer"><span data-i18n="footer.copyright">© 2025 Lambdajon</span><a href="/">← home</a></footer><script src="/js/i18n.js"></script><script src="/js/main.js"></script><script id="lang-urls" type="application/json">{"en":"/en/notes/note4/"}</script></body></html>

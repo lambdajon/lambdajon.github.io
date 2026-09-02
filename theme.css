@@ -1,0 +1,93 @@
+:root {
+  /* Gruvbox Dark */
+  --gb-bg0-h: #1d2021;
+  --gb-bg0: #282828;
+  --gb-bg0-s: #32302f;
+  --gb-bg1: #3c3836;
+  --gb-bg2: #504945;
+  --gb-bg3: #665c54;
+  --gb-bg4: #7c6f64;
+  --gb-fg0: #fbf1c7;
+  --gb-fg1: #ebdbb2;
+  --gb-fg2: #d5c4a1;
+  --gb-fg3: #bdae93;
+  --gb-fg4: #a89984;
+  --gb-red: #fb4934;
+  --gb-red-dim: #cc241d;
+  --gb-green: #b8bb26;
+  --gb-green-dim: #98971a;
+  --gb-yellow: #fabd2f;
+  --gb-yellow-dim: #d79921;
+  --gb-blue: #83a598;
+  --gb-blue-dim: #458588;
+  --gb-purple: #d3869b;
+  --gb-purple-dim: #b16286;
+  --gb-aqua: #8ec07c;
+  --gb-aqua-dim: #689d6a;
+  --gb-orange: #fe8019;
+  --gb-orange-dim: #d65d0e;
+  --gb-gray: #928374;
+
+  /* Semantic */
+  --bg: var(--gb-bg0);
+  --bg-soft: var(--gb-bg0-s);
+  --bg-panel: var(--gb-bg1);
+  --bg-highlight: var(--gb-bg2);
+  --fg: var(--gb-fg1);
+  --fg-bright: var(--gb-fg0);
+  --fg-dim: var(--gb-fg3);
+  --fg-muted: var(--gb-fg4);
+  --accent: var(--gb-orange);
+  --accent-dim: var(--gb-orange-dim);
+  --link: var(--gb-aqua);
+  --link-hover: var(--gb-green);
+  --border: var(--gb-bg2);
+  --border-strong: var(--gb-bg3);
+
+  /* Typography */
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --font-serif: 'Source Serif 4', Georgia, serif;
+
+  /* Layout */
+  --max-width: 860px;
+  --nav-height: 56px;
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2.5rem;
+  --spacing-2xl: 4rem;
+  --radius: 4px;
+  --radius-lg: 8px;
+}
+
+[data-theme="light"] {
+  /* Gruvbox Dark */
+  --gb-bg0-h: #f9f5d7;
+  --gb-bg0: #fbf1c7;
+  --gb-bg0-s: #f2e5bc;
+  --gb-bg1: #ebdbb2;
+  --gb-bg2: #d5c4a1;
+  --gb-bg3: #bdae93;
+  --gb-bg4: #a89984;
+  --gb-fg0: #282828;
+  --gb-fg1: #3c3836;
+  --gb-fg2: #504945;
+  --gb-fg3: #665c54;
+  --gb-fg4: #7c6f64;
+  --gb-red: #cc241d;
+  --gb-red-dim: #9d0006;
+  --gb-green: #98971a;
+  --gb-green-dim: #79740e;
+  --gb-yellow: #d79921;
+  --gb-yellow-dim: #b57614;
+  --gb-blue: #458588;
+  --gb-blue-dim: #076678;
+  --gb-purple: #b16286;
+  --gb-purple-dim: #8f3f71;
+  --gb-aqua: #689d6a;
+  --gb-aqua-dim: #427b58;
+  --gb-orange: #d65d0e;
+  --gb-orange-dim: #af3a03;
+  --gb-gray: #928374;
+}
