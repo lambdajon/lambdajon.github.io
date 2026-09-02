@@ -1,0 +1,114 @@
+cabal-version:   3.0
+name:            website
+version:         0.1.0.0
+license:         BSD-3-Clause
+license-file:    LICENSE
+author:          lambdajon
+maintainer:      lambdajon42@gmail.com
+build-type:      Simple
+extra-doc-files: CHANGELOG.md
+
+common warnings
+  ghc-options: -Wall
+
+library
+  import:             warnings
+  exposed-modules:
+    Website
+    Website.Assets
+    Website.Component
+    Website.Components.Base
+    Website.Components.Card
+    Website.Components.CodeBlock
+    Website.Components.ContactBox
+    Website.Components.Content
+    Website.Components.Footer
+    Website.Components.Hero
+    Website.Components.Nav
+    Website.Components.NoteList
+    Website.Components.PageHeader
+    Website.Components.Section
+    Website.Components.Tag
+    Website.Config
+    Website.Context
+    Website.Discover
+    Website.I18n
+    Website.Layout
+    Website.New
+    Website.Pages.About
+    Website.Pages.Index
+    Website.Pages.Listing
+    Website.Pages.NotFound
+    Website.Pages.Single
+    Website.Pages.Tag
+    Website.Post
+    Website.Prelude
+    Website.Search
+    Website.Style
+    Website.Theme
+    Website.Watch
+
+  build-depends:
+    , aeson
+    , async
+    , base
+    , bytestring
+    , clay
+    , containers
+    , directory
+    , filepath
+    , fsnotify
+    , http-types
+    , lucid
+    , optparse-applicative
+    , pandoc
+    , process
+    , skylighting
+    , skylighting-core
+    , text
+    , time
+    , wai
+    , wai-app-static
+    , warp
+    , yaml
+
+  hs-source-dirs:     src
+  default-language:   GHC2024
+  default-extensions:
+    AllowAmbiguousTypes
+    BlockArguments
+    ConstraintKinds
+    DataKinds
+    DeriveAnyClass
+    DerivingStrategies
+    GADTs
+    ImplicitParams
+    ImportQualifiedPost
+    LambdaCase
+    OverloadedRecordDot
+    OverloadedStrings
+    RecordWildCards
+    RequiredTypeArguments
+    StandaloneDeriving
+    TypeFamilies
+
+executable website
+  import:           warnings
+  main-is:          Main.hs
+  ghc-options:      -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+    , base
+    , website
+
+  hs-source-dirs:   app
+  default-language: GHC2024
+
+test-suite website-test
+  import:           warnings
+  default-language: GHC2024
+  type:             exitcode-stdio-1.0
+  hs-source-dirs:   test
+  main-is:          Main.hs
+  build-depends:
+    , base
+    , website

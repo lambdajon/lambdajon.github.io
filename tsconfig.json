@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["ES2020", "DOM"],
+    "module": "none",
+    "strict": true,
+    "outDir": "_site/js",
+    "rootDir": "assets/js"
+  },
+  "include": ["assets/js/**/*.ts"]
+}

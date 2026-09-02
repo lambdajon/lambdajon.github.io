@@ -1,0 +1,8 @@
+cfgSiteTitle: "Lambdajon"
+cfgSiteUrl: "https://lambdajon.github.io"
+cfgDefaultLang: "en"
+cfgPostsDir: "content/posts"
+cfgNotesDir: "content/notes"
+cfgProjectsDir: "content/projects"
+cfgOutputDir: "_site"
+cfgAssetsDir: "assets/css"

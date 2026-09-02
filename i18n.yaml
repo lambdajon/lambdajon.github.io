@@ -1,0 +1,74 @@
+en:
+  nav.research: "research"
+  nav.posts: "articles"
+  nav.projects: "projects"
+  nav.notes: "notes"
+  nav.about: "about"
+  hero.tagline: "// type theory · compilers · systems · functional programming"
+  hero.cv: "CV"
+  hero.affiliation: "Affiliation"
+  hero.location: "Location"
+  page.research.title: "Research"
+  page.research.subtitle: "// papers and publications"
+  page.projects.title: "Projects"
+  page.projects.subtitle: "// open source work"
+  page.notes.title: "Notes"
+  page.notes.subtitle: "// technical notes and tutorials"
+  page.about.title: "About"
+  page.about.subtitle: "// a bit about me"
+  common.inprep: "In Preparation"
+  common.docs: "docs"
+  footer.copyright: "© 2025-2026 Lambdajon"
+  footer.built: "plain html + css"
+  about.content: |
+    I'm a programmer interested in type theory, compilers, and systems software.
+    I am currently working on the [Xinux](https://xinux.uz) project in the **UOSS** team.
+
+    ## Links
+
+    - [GitHub](https://github.com/lambdajon) ↗
+    - [Email](mailto:lambdajon42@gmail.com) ↗
+    - [CV (PDF)](/cv.pdf) ↗
+
+    ## Research interests
+    - Type theory 
+    - Systems programming and formal verification
+    - Functional programming languages
+
+uz:
+  nav.research: "izlanish"
+  nav.posts: "maqolalar"
+  nav.projects: "loyihalar"
+  nav.notes: "qaydlar"
+  nav.about: "men haqimda"
+  hero.tagline: "// tiplar nazariyasi · kompilyatorlar · tizim dasturlash · funksional dasturlash"
+  hero.cv: "CV"
+  hero.affiliation: "Aloqadorlik"
+  hero.location: "Joylashuv"
+  page.research.title: "Izlanish"
+  page.research.subtitle: "// maqola va nashirlar"
+  page.projects.title: "Loyihalar"
+  page.projects.subtitle: "// ochiq kodli dasturlar"
+  page.notes.title: "Qaydlar"
+  page.notes.subtitle: "// Texnik qayd va darsliklar"
+  page.about.title: "Men haqimda"
+  page.about.subtitle: "// men haqimda biroz"
+  common.inprep: "Tayyorgarlik jarayonida"
+  common.docs: "hujjatlar"
+  footer.copyright: "© 2025-2026 Lambdajon"
+  footer.built: "toza html + css"
+  about.content: |
+    Men tiplar nazariyasi, kompilyatorlar va tizim dasturlari bilan qiziqqan dasturchiman.
+    Xozirda **UOSS** jamoasida [Xinux](https://xinux.uz) loyihasi ustida ishlayman.
+
+    ## Havolalar
+
+    - [GitHub](https://github.com/lambdajon) ↗
+    - [Email](mailto:lambdajon42@gmail.com) ↗
+    - [CV (PDF)](/cv.pdf) ↗
+
+    ## Tadqiqot qiziqishlari
+    - Tiplar nazariyasi 
+    - Tizim dasturlash va formal verifikatsiya
+    - Funksional dasturlash.
+
