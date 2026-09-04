@@ -55,7 +55,7 @@ tocTemplate = do
 langUrlsJson :: Map.Map Text Text -> Text
 langUrlsJson = TE.decodeUtf8 . BL.toStrict . encode
 
--- Page 
+-- Page
 
 singlePage :: (Ctx) => Post -> Text -> Html ()
 singlePage post bodyHtml =
@@ -100,7 +100,7 @@ singlePage post bodyHtml =
   hreflang (l, u) =
     link_ [rel_ "alternate", makeAttribute "hreflang" l, href_ u]
 
--- Build 
+-- Build
 
 buildSingle :: (Ctx) => FilePath -> Post -> IO ()
 buildSingle outDir post = do

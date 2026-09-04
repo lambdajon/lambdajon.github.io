@@ -6,11 +6,11 @@ import Control.Concurrent.Async (mapConcurrently)
 import Control.Exception (SomeException, try)
 import Data.IORef
 import Data.Map.Strict qualified as Map
+import Data.Text (Text)
+import Data.Yaml qualified as Y
 import Options.Applicative
 import System.Exit (exitFailure)
 import System.Process (callProcess)
-import Data.Text (Text)
-import Data.Yaml qualified as Y
 import Website.Assets (copyAssets)
 import Website.Config (SiteConfig (..), loadConfig)
 import Website.Context (mkCtx)
@@ -24,13 +24,13 @@ import Website.Pages.Listing (buildListingPages)
 import Website.Pages.NotFound (build404)
 import Website.Pages.Single (buildSingle)
 import Website.Pages.Tag (buildTagPages)
-import Website.Post (Frontmatter (..), Post (..), PostKind (..), postUrl, parsePost)
+import Website.Post (Frontmatter (..), Post (..), PostKind (..), parsePost, postUrl)
 import Website.Search (buildIndex)
 import Website.Style (buildStyleCss)
 import Website.Theme (buildThemeCss, gruvboxDark, gruvboxLight)
 import Website.Watch (runDevServer)
 
--- CLI 
+-- CLI
 data Command
   = Build
   | Watch {watchPort :: Int}
@@ -102,7 +102,7 @@ cli =
   parseKind "project" = Right Project
   parseKind s = Left $ "unknown kind '" <> s <> "' — use post, note, or project"
 
--- Build 
+-- Build
 runBuild :: IO ()
 runBuild = do
   cfg <- loadConfig "config.yaml"
@@ -150,9 +150,10 @@ runBuild = do
 
   errs <- readIORef errors
   mapM_ (\e -> putStrLn $ "ERROR: " <> e) errs
-  if null errs
-    then putStrLn $ "Built " <> show (length allContent) <> " posts."
-    else exitFailure
+  if null errs then
+    putStrLn $ "Built " <> show (length allContent) <> " posts."
+  else
+    exitFailure
 
 run :: IO ()
 run = do

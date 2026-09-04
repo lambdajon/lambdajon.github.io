@@ -27,12 +27,12 @@ runNew opts = do
       dir = kindDir cfg opts.newKind </> opts.newLang
       path = dir </> slug <> ".md"
   exists <- doesFileExist path
-  if exists
-    then putStrLn ("Error: " <> path <> " already exists") >> exitFailure
-    else do
-      createDirectoryIfMissing True dir
-      writeFile path (buildFrontmatter today opts slug)
-      putStrLn $ "Created: " <> path
+  if exists then
+    putStrLn ("Error: " <> path <> " already exists") >> exitFailure
+  else do
+    createDirectoryIfMissing True dir
+    writeFile path (buildFrontmatter today opts slug)
+    putStrLn $ "Created: " <> path
 
 -- Helpers
 

@@ -64,7 +64,7 @@ page :: (Ctx) => Text -> Text -> Html () -> Html ()
 page title lang body =
   fullPage defPage{pageTitle = title, pageLang = lang, pageBody = body}
 
--- Head 
+-- Head
 
 headContent :: (Ctx) => Text -> Text -> Html ()
 headContent pageTitle pageLang = do
@@ -78,9 +78,10 @@ headContent pageTitle pageLang = do
   script_ themeInitScript
  where
   feedHref =
-    if pageLang == ?ctx.ctxDefaultLang
-      then "/feed.xml"
-      else "/" <> pageLang <> "/feed.xml"
+    if pageLang == ?ctx.ctxDefaultLang then
+      "/feed.xml"
+    else
+      "/" <> pageLang <> "/feed.xml"
 
 themeInitScript :: Text
 themeInitScript =
@@ -90,7 +91,7 @@ themeInitScript =
   \document.documentElement.setAttribute('data-theme',s);\
   \})()"
 
--- Scripts 
+-- Scripts
 
 siteScripts :: Html ()
 siteScripts = do

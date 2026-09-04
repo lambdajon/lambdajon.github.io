@@ -16,8 +16,7 @@
       in !(lib.hasSuffix ".nix" baseName);
   };
 
-  mkDerivation.buildInputs =
-    with config.deps; [ zlib bzip2 bzip2.dev libzip ];
+  mkDerivation.buildInputs = with config.deps; [ zlib bzip2 bzip2.dev libzip ];
 
   mkDerivation.nativeBuildInputs = [ config.deps.pkg-config pkgs.makeWrapper ];
 

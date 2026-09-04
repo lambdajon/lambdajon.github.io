@@ -18,6 +18,7 @@ copyAssets srcDir dstDir = do
     let src = srcDir </> name
         dst = dstDir </> name
     isFile <- doesFileExist src
-    if isFile
-      then copyFileWithMetadata src dst
-      else copyAssets src dst
+    if isFile then
+      copyFileWithMetadata src dst
+    else
+      copyAssets src dst

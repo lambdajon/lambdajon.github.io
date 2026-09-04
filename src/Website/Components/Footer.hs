@@ -38,9 +38,10 @@ instance Render Footer where
       extra
    where
     feedHref =
-      if lang == ?ctx.ctxDefaultLang
-        then "/feed.xml"
-        else "/" <> lang <> "/feed.xml"
+      if lang == ?ctx.ctxDefaultLang then
+        "/feed.xml"
+      else
+        "/" <> lang <> "/feed.xml"
     rssIcon =
       toHtmlRaw
         ( "<svg width='12' height='12' viewBox='0 0 24 24' fill='currentColor'>"

@@ -23,9 +23,10 @@ buildAboutPages outDir = do
           Map.findWithDefault "" "about.content"
             $ Map.findWithDefault Map.empty lang dict
         dir =
-          if lang == ?ctx.ctxDefaultLang
-            then outDir <> "/about"
-            else outDir <> "/" <> T.unpack lang <> "/about"
+          if lang == ?ctx.ctxDefaultLang then
+            outDir <> "/about"
+          else
+            outDir <> "/" <> T.unpack lang <> "/about"
     bodyHtml <- runIOorExplode $ readMarkdown def content >>= writeHtml5String def
     writePage dir $ page "About" lang (aboutPage bodyHtml)
 

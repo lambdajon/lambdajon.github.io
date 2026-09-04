@@ -105,7 +105,7 @@ inlineToText SoftBreak = " "
 inlineToText (Code _ t) = t
 inlineToText _ = ""
 
--- Reader options 
+-- Reader options
 readerOpts :: ReaderOptions
 readerOpts =
   def
@@ -130,7 +130,6 @@ postUrl :: Post -> Text
 postUrl p = "/" <> lang <> "/" <> kindUrlPrefix (postKind p) <> "/" <> postSlug p <> "/"
  where
   lang = fmLang (postFrontmatter p)
-
 
 {- | Read and fully parse a post from disk.
 Lang is taken from the immediate parent directory name (e.g. data/posts/en/post.md → "en").
