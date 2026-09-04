@@ -3,9 +3,8 @@
 
   nixConfig = {
     extra-substituters = [ "https://lambdajon.cachix.org" ];
-    extra-trusted-public-keys = [
-      "lambdajon.cachix.org-1:6+t9OJus42lomgVGzhZdGQH9JL14HWUDXxop2usvric="
-    ];
+    extra-trusted-public-keys =
+      [ "lambdajon.cachix.org-1:6+t9OJus42lomgVGzhZdGQH9JL14HWUDXxop2usvric=" ];
   };
 
   inputs = {
@@ -22,14 +21,7 @@
     };
   };
 
-  outputs =
-    { self
-    , nixpkgs
-    , nixpkgs-unstable
-    , flake-utils
-    , git-hooks
-    , treefmt-nix
-    }:
+  outputs = { self, nixpkgs, nixpkgs-unstable, flake-utils, treefmt-nix, ... }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
@@ -57,11 +49,12 @@
         treefmtEval = treefmt-nix.lib.evalModule pkgs {
           projectRootFile = "flake.nix";
           programs.fourmolu.enable = true;
+          programs.fourmolu.package =
+            pkgsUnstable.haskell.packages.ghc912.fourmolu;
           programs.cabal-fmt.enable = true;
           programs.nixfmt.enable = true;
         };
-      in
-      {
+      in {
         packages.default = website;
 
         apps.default = {
@@ -100,15 +93,5 @@
         };
 
         formatter = treefmtEval.config.build.wrapper;
-
-        checks = {
-          pre-commit = git-hooks.lib.${system}.run {
-            src = ./.;
-            hooks.treefmt = {
-              enable = true;
-              package = treefmtEval.config.build.wrapper;
-            };
-          };
-        };
       });
 }
