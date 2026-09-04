@@ -75,7 +75,6 @@ instance Styled Base where
     ".mt-xl" %?% do "margin-top" -: ref cXl
 
     query Media.screen [Media.maxWidth (px 640)] $ do
-      ".nav__links" %?% display none
       ".note-item" %?% do
         flexDirection column
         "gap" -: ref cXs

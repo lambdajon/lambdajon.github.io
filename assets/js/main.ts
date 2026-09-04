@@ -131,6 +131,34 @@ const initCopyButtons = (): void => {
   });
 };
 
+// Mobile nav
+
+const initMobileMenu = (): void => {
+  const btn = document.querySelector<HTMLElement>(".nav__menu-btn");
+  const links = document.querySelector<HTMLElement>(".nav__links");
+  if (!btn || !links) return;
+
+  btn.addEventListener("click", () => {
+    const open = links.classList.toggle("open");
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+
+  links.querySelectorAll(".nav__link").forEach(link => {
+    link.addEventListener("click", () => {
+      links.classList.remove("open");
+      btn.setAttribute("aria-expanded", "false");
+    });
+  });
+
+  document.addEventListener("click", e => {
+    const nav = document.querySelector(".nav");
+    if (nav && !nav.contains(e.target as Node)) {
+      links.classList.remove("open");
+      btn.setAttribute("aria-expanded", "false");
+    }
+  });
+};
+
 // Theme toggle
 
 const sunSvg =
@@ -177,6 +205,7 @@ const init = (): void => {
   initLangSwitcher();
   initNavHighlight();
   initCopyButtons();
+  initMobileMenu();
 };
 
 if (document.readyState === "loading") {

@@ -1,6 +1,7 @@
 module Website.Components.Nav (Nav (..)) where
 
 import Clay hiding (filter, href, label, span_, (?))
+import Clay.Media qualified as Media
 import Data.Map.Strict qualified as Map
 import Data.Text (Text)
 import Data.Text qualified as T
@@ -63,6 +64,19 @@ instance Render Nav where
       div_ [class_ "lang-switcher"] $ do
         button_ [class_ "lang-btn", makeAttribute "data-lang-btn" "en"] "EN"
         button_ [class_ "lang-btn", makeAttribute "data-lang-btn" "uz"] "UZ"
+      button_
+        [ class_ "nav__menu-btn"
+        , makeAttribute "aria-label" "Toggle navigation"
+        , makeAttribute "aria-expanded" "false"
+        ]
+        $ toHtmlRaw
+          ( "<svg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round'>"
+              <> "<line x1='3' y1='6' x2='21' y2='6'/>"
+              <> "<line x1='3' y1='12' x2='21' y2='12'/>"
+              <> "<line x1='3' y1='18' x2='21' y2='18'/>"
+              <> "</svg>"
+              :: T.Text
+          )
    where
     dict = Map.findWithDefault Map.empty navLang ?ctx.ctxI18n
     t key fallback = Map.findWithDefault fallback key dict
@@ -155,3 +169,51 @@ instance Styled Nav where
       "background" -: ref cFg
       "color" -: ref cBg
       "border-color" -: ref cFg
+
+    ".nav__menu-btn" %?% do
+      display none
+      alignItems center
+      justifyContent center
+      "appearance" -: "none"
+      "-webkit-appearance" -: "none"
+      "margin" -: "0"
+      "border" -: "1px solid " <> ref cBorder
+      background transparent
+      "color" -: ref cFgMuted
+      "padding" -: "4px 8px"
+      cursor pointer
+      "border-radius" -: ref cRadius
+      "transition" -: "all 0.15s ease"
+
+    ".nav__menu-btn:hover" %?% do
+      "background" -: ref cFg
+      "color" -: ref cBg
+      "border-color" -: ref cFg
+
+    query Media.screen [Media.maxWidth (px 640)] $ do
+      ".nav" %?% do
+        "gap" -: "0.75rem"
+        "padding" -: "0 1.5rem"
+
+      ".nav__menu-btn" %?% display flex
+
+      ".nav__links" %?% do
+        display none
+        position absolute
+        "top" -: ref cNavHeight
+        "left" -: "0"
+        "right" -: "0"
+        flexDirection column
+        "gap" -: "0"
+        "padding" -: "0.5rem 1.5rem 1rem"
+        "background" -: ref cGbBg0H
+        "border-bottom" -: "1px solid " <> ref cBorder
+        zIndex 99
+
+      ".nav__links.open" %?% display flex
+
+      ".nav__links li" %?% do
+        "padding" -: "0.6rem 0"
+        "border-top" -: "1px solid " <> ref cBorder
+
+      ".nav__link" %?% fontSize (rem 0.9)
