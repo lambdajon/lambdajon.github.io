@@ -2,4 +2,4 @@ packages:
   .
 
 allow-newer: all
-constraints: pandoc >= 3.6
+constraints: pandoc >= 3.10.2
