@@ -1,3 +1,4 @@
+{-# LANGUAGE CPP #-}
 {-# OPTIONS_GHC -Wno-type-defaults #-}
 
 module Website.Pages.Single
@@ -28,9 +29,7 @@ import Website.Theme (gruvboxDark, paletteStyle)
 
 -- Writer options
 
-gruvboxStyle :: Style
-gruvboxStyle = paletteStyle gruvboxDark
-
+#if MIN_VERSION_pandoc(3,7,1)
 writerOpts :: Bool -> Maybe (Template Text) -> WriterOptions
 writerOpts toc tmpl =
   def
@@ -42,6 +41,24 @@ writerOpts toc tmpl =
     , writerTemplate = tmpl
     , writerEmailObfuscation = ReferenceObfuscation
     }
+
+#else
+writerOpts :: Bool -> Maybe (Template Text) -> WriterOptions
+writerOpts toc tmpl =
+  def
+    { writerHighlightStyle = Just gruvboxStyle 
+    , writerHtmlQTags = True
+    , writerSectionDivs = True
+    , writerTableOfContents = toc
+    , writerTOCDepth = 3
+    , writerTemplate = tmpl
+    , writerEmailObfuscation = ReferenceObfuscation
+    }
+
+#endif
+
+gruvboxStyle :: Style
+gruvboxStyle = paletteStyle gruvboxDark
 
 tocTemplate :: IO (Template Text)
 tocTemplate = do
