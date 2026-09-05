@@ -12,6 +12,7 @@ import Website.Theme
   , cFg
   , cFgBright
   , cFgDim
+  , cFgMuted
   , cFontMono
   , cFontSerif
   , cGbAqua
@@ -203,3 +204,45 @@ instance Styled Content where
     ".code-copy-btn.copied" %?% do
       "color" -: ref cGbAqua
       opacity 1
+
+    ".content .code-tabs" %?% do
+      "border" -: "1px solid " <> ref cBorder
+      "border-radius" -: ref cRadiusLg
+      "overflow" -: "hidden"
+      "margin" -: ref cLg <> " 0"
+
+    ".content .code-tabs__bar" %?% do
+      "display" -: "flex"
+      "background" -: ref cBgPanel
+      "border-bottom" -: "1px solid " <> ref cBorder
+      "padding" -: "0 " <> ref cSm
+      "gap" -: "2px"
+
+    ".content .code-tabs__btn" %?% do
+      "background" -: "none"
+      "border" -: "none"
+      "border-bottom" -: "2px solid transparent"
+      "color" -: ref cFgMuted
+      "font-family" -: ref cFontMono
+      fontSize (rem 0.75)
+      "padding" -: ref cSm <> " " <> ref cMd
+      cursor pointer
+      "letter-spacing" -: "0.04em"
+      "transition" -: "color 0.15s ease, border-color 0.15s ease"
+
+    ".content .code-tabs__btn:hover" %?% do
+      "color" -: ref cFgBright
+
+    ".content .code-tabs__btn.active" %?% do
+      "color" -: ref cGbAqua
+      "border-bottom-color" -: ref cGbAqua
+
+    ".content .code-tabs .sourceCode" %?% do
+      "margin" -: "0"
+      "border" -: "none"
+      "border-radius" -: "0"
+
+    ".content .code-tabs pre" %?% do
+      "margin" -: "0"
+      "border" -: "none"
+      "border-radius" -: "0"

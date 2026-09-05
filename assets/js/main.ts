@@ -198,6 +198,47 @@ const initTheme = (): void => {
   });
 };
 
+// Code tabs
+
+const initCodeTabs = (): void => {
+  document.querySelectorAll<HTMLElement>(".content .tabs").forEach(container => {
+    const panels = Array.from(
+      container.querySelectorAll<HTMLElement>(":scope > div.sourceCode")
+    );
+    if (panels.length < 2) return;
+
+    const langs = panels.map(panel => {
+      const code = panel.querySelector("code");
+      if (!code) return "text";
+      return Array.from(code.classList).find(c => c !== "sourceCode") ?? "text";
+    });
+
+    const bar = document.createElement("div");
+    bar.className = "code-tabs__bar";
+
+    const activate = (idx: number): void => {
+      bar.querySelectorAll<HTMLElement>(".code-tabs__btn").forEach((btn, i) => {
+        btn.classList.toggle("active", i === idx);
+      });
+      panels.forEach((p, i) => {
+        p.style.display = i === idx ? "" : "none";
+      });
+    };
+
+    langs.forEach((lang, i) => {
+      const btn = document.createElement("button");
+      btn.className = "code-tabs__btn";
+      btn.textContent = lang;
+      btn.addEventListener("click", () => activate(i));
+      bar.appendChild(btn);
+    });
+
+    container.prepend(bar);
+    container.classList.add("code-tabs");
+    activate(0);
+  });
+};
+
 // Init
 
 const init = (): void => {
@@ -206,6 +247,7 @@ const init = (): void => {
   initNavHighlight();
   initCopyButtons();
   initMobileMenu();
+  initCodeTabs();
 };
 
 if (document.readyState === "loading") {

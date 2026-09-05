@@ -445,6 +445,19 @@ datahere */
 datahere
 ```
 
+::: tabs
+
+  ```haskell
+  id :: a -> a
+  id x = x
+  ```
+
+  ```rust
+  fn id<T>(x: T) -> T { x }
+  ```
+
+:::
+
 ------
 
 # Tables
