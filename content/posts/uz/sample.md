@@ -458,6 +458,56 @@ datahere
 
 :::
 
+```coq
+  Theorem negation_fn_applied_twice :                                                                                                            
+    forall (f : bool -> bool),                                                                                                                   
+    (forall (x : bool), f x = negb x) ->                                                                                                         
+    forall (b : bool), f (f b) = b.
+  Proof.
+    intros f H b.
+    rewrite H.   (* f (f b) = b  ->  f (negb b) = b *)
+    rewrite H.   (* f (negb b) = b ->  negb (negb b) = b *)
+    destruct b.
+    - reflexivity.  (* negb (negb true) = true *)
+    - reflexivity.  (* negb (negb false) = false *)
+  Qed.  
+```
+
+```agda
+
+module Introduction.Unicode where
+
+module ユーニコード where
+
+  data _∧_ (P Q : Prop) : Prop where
+    ∧-intro : P -> Q -> P ∧ Q
+
+  ∧-elim₁ : {P Q : Prop} -> P ∧ Q -> P
+  ∧-elim₁ (∧-intro p _) = p
+
+  ∧-elim₂ : {P Q : Prop} -> P ∧ Q -> Q
+  ∧-elim₂ (∧-intro _ q) = q
+
+  data _∨_ (P Q : Prop) : Prop where
+    ∨-intro₁ : P -> P ∨ Q
+    ∨-intro₂ : Q -> P ∨ Q
+
+  ∨-elim : {P Q R : Prop} -> (P -> R) -> (Q -> R) -> P ∨ Q -> R
+  ∨-elim f g (∨-intro₁ p) = f p
+  ∨-elim f g (∨-intro₂ q) = g q
+
+  data ⊥ : Prop where
+
+  data ⊤ : Prop where
+    ⊤-intro : ⊤
+
+  data ¬_ (P : Prop) : Prop where
+    ¬-intro : (P -> ⊥) -> ¬ P
+
+  data ∏ {A : Set}(P : A -> Prop) : Prop where
+    ∏-intro : ((x : A) -> P x) -> ∏ P
+```
+
 ------
 
 # Tables
